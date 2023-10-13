@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>USPTO Document Fetcher</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>USPTO Document Fetcher</h1>
+        <p class="subtitle">Enter an application number to fetch documents</p>
+        <div class="input-container">
+            <input type="text" id="numberInput" placeholder="Enter Application Number">
+            <button id="fetchBtn">Fetch</button>
+        </div>
+        <div class="response-container">
+            <table id="responseTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Mail Room Date</th>
+                        <th>Document Code</th>
+                        <th>Document Description</th>
+                        <th>Page Count</th>
+                        <th>Download PDF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
