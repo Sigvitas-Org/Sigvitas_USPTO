@@ -1,17 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const isNewSession = sessionStorage.getItem('newSession');
-
-    if (isNewSession) {
-        console.log('New session started.');
-    }
-    window.addEventListener('beforeunload', () => {
-        sessionStorage.clear();
-        localStorage.clear();
-        sessionStorage.setItem('newSession', 'true');
-    });
-
-
-document.addEventListener('DOMContentLoaded', () => {
     const dataTypeDropdown = document.getElementById('dataTypeDropdown');
     const dataInput = document.getElementById('dataInput');
     const fetchButton = document.getElementById('fetchButton');
@@ -93,10 +80,3 @@ function displayDataInTable(data, dataTable) {
         resultsSection.style.display = 'block';
     }
 }
-const clearSessionButton = document.getElementById('clearSessionButton');
-    clearSessionButton.addEventListener('click', () => {
-        sessionStorage.clear();
-        localStorage.clear();
-        console.log('Session data and local storage cleared.');
-    });
-});
