@@ -102,4 +102,3 @@ function displayDataInTable(data, dataTable) {
         // Reload the page
         location.reload();
     }
-})
