@@ -5,8 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
+
+
+
     <title>USPTO Data Viewer</title>
 </head>
 
@@ -39,45 +44,78 @@
                             <i class="fas fa-search"></i> Fetch Data
                         </button>
                     </div>
-                    <div class="col-md-2">
-                        <button id="refreshButton" class="btn btn-danger">Refresh</button>
-                    </div>
+                <div class="col-md-2">
+                    <button id="refreshButton" class="btn btn-secondary">Refresh</button>
+                </div>
                 </div>
             </div>
             </div>
+            
             <p class="mt-8">Search by Application number, Patent number, Publication number.</p>
         </section>
 
-        <section class="results-section" style="display: none;">
-            <table id="dataTable" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Mail Room Date</th>
-                        <th>Document Code</th>
-                        <th>Document Description</th>
-                        <th>Page Count</th>
-                        <th>PDF</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </section>
+<!-- Inside the results-section -->
+<section class="results-section" style="display: none;">
+    <!-- Filter dropdown -->
+    <div class="col-md-4">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Filter
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                <li><a class="dropdown-item" data-value="abstract">Abstracts</a></li>
+                <li><a class="dropdown-item" data-value="claims">Claims</a></li>
+                <li><a class="dropdown-item" data-value="specifications">Specifications</a></li>
+                <li><a class="dropdown-item" data-value="all">All</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+    <table id="dataTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Mail Room Date</th>
+                <th>Document Code</th>
+                <th>Document Description</th>
+                <th>Page Count</th>
+                <th>PDF</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+
         <div id="loader" class="loader"></div>
-
     </main>
-<script>
-    function showLoader() {
-    const loader = document.getElementById('loader');
-    loader.style.display = 'block';
-}
+    <script>
+        function showLoader() {
+                const loader = document.getElementById('loader');
+                loader.style.display = 'block';
+            }
 
-function hideLoader() {
-    const loader = document.getElementById('loader');
-    loader.style.display = 'none';
-}
+            function hideLoader() {
+                const loader = document.getElementById('loader');
+                loader.style.display = 'none';
+            }
+    </script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+<script src="script.js"></script>
 
-</script>
-    <script src="script.js"></script>
+
+
+    <!-- <script src="script.js"></script> -->
 </body>
 
 </html>
