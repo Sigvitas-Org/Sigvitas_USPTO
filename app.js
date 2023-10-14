@@ -128,4 +128,4 @@ function savePatentResponseToFile(patentNumber, responseData) {
     fs.writeFileSync(filePath, JSON.stringify(responseData, null, 2));
 }
 
-const responseData = JSON.parse(rawData);
+// const responseData = JSON.parse(rawData);
