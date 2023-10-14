@@ -23,9 +23,9 @@
             <div class="col-md-4">
                 <label for="dataTypeDropdown">Select Data Type:</label>
                 <select id="dataTypeDropdown" class="form-control">
-                    <option value="application">Application</option>
-                    <option value="patent">Patent</option>
-                    <option id="publicationNumberInput" value="publication">Publication</option> 
+                    <option value="application">Application No.</option>
+                    <option value="patent">Patent No.</option>
+                    <option id="publicationNumberInput" value="publication">Publication No.</option> 
                 </select>
             </div>
             <div class="col-md-4">
@@ -38,6 +38,9 @@
                         <button id="fetchButton" class="btn btn-primary">
                             <i class="fas fa-search"></i> Fetch Data
                         </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="refreshButton" class="btn btn-danger">Refresh</button>
                     </div>
                 </div>
             </div>
@@ -59,8 +62,21 @@
                 <tbody></tbody>
             </table>
         </section>
-    </main>
+        <div id="loader" class="loader"></div>
 
+    </main>
+<script>
+    function showLoader() {
+    const loader = document.getElementById('loader');
+    loader.style.display = 'block';
+}
+
+function hideLoader() {
+    const loader = document.getElementById('loader');
+    loader.style.display = 'none';
+}
+
+</script>
     <script src="script.js"></script>
 </body>
 

@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dataTable = document.getElementById('dataTable');
 
     fetchButton.addEventListener('click', async () => {
+        showLoader();
         const dataType = dataTypeDropdown.value;
         const dataValue = dataInput.value;
 
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function displayDataInTable(data, dataTable) {
+    hideLoader();
 
     const tbody = dataTable.querySelector('tbody');
 
@@ -80,3 +82,24 @@ function displayDataInTable(data, dataTable) {
         resultsSection.style.display = 'block';
     }
 }
+
+
+    // Refresh button click event
+    refreshButton.addEventListener('click', () => {
+        clearCacheAndReload();
+    });
+
+    // Add a listener for the beforeunload event
+    window.addEventListener('beforeunload', () => {
+        clearCacheAndReload();
+    });
+
+    // Function to clear the session and reload the page
+    function clearCacheAndReload() {
+        // Clear session data
+        sessionStorage.clear();
+
+        // Reload the page
+        location.reload();
+    }
+})
