@@ -4,35 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>USPTO Document Fetcher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>USPTO Data Viewer</title>
 </head>
 
 <body>
-    <div class="container">
-        <h1>USPTO Document Fetcher</h1>
-        <p class="subtitle">Enter an application number to fetch documents</p>
-        <div class="input-container">
-            <input type="text" id="numberInput" placeholder="Enter Application Number">
-            <button id="fetchBtn">Fetch</button>
+    <header class="navbar navbar-dark">
+        <div class="container">
+            <h1 class="text-light">USPTO Data Downloader</h1>
         </div>
-        <div class="response-container">
-            <table id="responseTable" style="display: none;">
+    </header>
+
+    <main class="container w-100 p-3">
+        <section class="search-section mb-4">
+            <div class="row">
+            <div class="col-md-4">
+                <label for="dataTypeDropdown">Select Data Type:</label>
+                <select id="dataTypeDropdown" class="form-control">
+                    <option value="application">Application</option>
+                    <option value="patent">Patent</option>
+                    <option id="publicationNumberInput" value="publication">Publication</option> 
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="dataInput">Enter Data Number:</label>
+                <div class="input-group">
+                    <input type="text" id="dataInput" class="form-control">
+                    <input type="text" id="publicationNumberInput" class="form-control" style="display:none;">
+           
+                    <div class="input-group-append">
+                        <button id="fetchButton" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Fetch Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <p class="mt-8">Search by Application number, Patent number, Publication number.</p>
+        </section>
+
+        <section class="results-section" style="display: none;">
+            <table id="dataTable" class="table table-striped">
                 <thead>
                     <tr>
                         <th>Mail Room Date</th>
                         <th>Document Code</th>
                         <th>Document Description</th>
                         <th>Page Count</th>
-                        <th>Download PDF</th>
+                        <th>PDF</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Table data will be inserted here -->
-                </tbody>
+                <tbody></tbody>
             </table>
-        </div>
-    </div>
+        </section>
+    </main>
+
     <script src="script.js"></script>
 </body>
 

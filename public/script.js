@@ -1,46 +1,82 @@
-document.getElementById("fetchBtn").addEventListener("click", async () => {
-    const numberInput = document.getElementById("numberInput").value;
+document.addEventListener('DOMContentLoaded', () => {
+    const dataTypeDropdown = document.getElementById('dataTypeDropdown');
+    const dataInput = document.getElementById('dataInput');
+    const fetchButton = document.getElementById('fetchButton');
+    const dataTable = document.getElementById('dataTable');
 
-    if (numberInput) {
-        const response = await fetch(`/fetchUSPTOData?applicationNumber=${numberInput}`);
-        if (response.ok) {
-            const data = await response.json();
-            displayResponseInTable(data);
-        } else {
-            alert("Failed to fetch data from USPTO API.");
+    fetchButton.addEventListener('click', async () => {
+        const dataType = dataTypeDropdown.value;
+        const dataValue = dataInput.value;
+
+        if (dataType === 'application') {
+            const apiUrl = `/fetchUSPTOData?applicationNumber=${dataValue}`;
+            try {
+                const response = await fetch(apiUrl);
+                if (response.ok) {
+                    const data = await response.json();
+                    displayDataInTable(data, dataTable);
+                } else {
+                    console.error('Error fetching data:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        } else if (dataType === 'patent') {
+
+            const apiUrl = `/fetchPatentData?patentNumber=${dataValue}`;
+            try {
+                const response = await fetch(apiUrl);
+                if (response.ok) {
+                    const data = await response.json();
+                    displayDataInTable(data, dataTable);
+                } else {
+                    console.error('Error fetching patent data:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching patent data:', error);
+            }
+        } else if (dataType === 'publication') {
+            const publicationNumber = dataValue;
+            const apiUrl = `/fetchPublicationData?publicationNumber=${publicationNumber}`;
+            try {
+                const response = await fetch(apiUrl);
+                if (response.ok) {
+                    const data = await response.json();
+                    displayDataInTable(data, dataTable);
+                } else {
+                    console.error('Error fetching publication data:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching publication data:', error);
+            }
         }
-    } else {
-        alert("Please enter a valid application number.");
-    }
+    });
 });
 
-function displayResponseInTable(responseData) {
-    const responseTable = document.getElementById("responseTable");
-    responseTable.style.display = "block"; // Show the table
-    const tableHTML = `
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Mail Room Date</th>
-                    <th>Document Code</th>
-                    <th>Document Description</th>
-                    <th>Page Count</th>
-                    <th>PDF</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${responseData.map(record => `
-                    <tr>
-                        <td>${record.mailRoomDate}</td>
-                        <td>${record.documentCode}</td>
-                        <td>${record.documentDescription}</td>
-                        <td>${record.pageCount}</td>
-                        <td><a href="https://ped.uspto.gov/api/queries/cms/${record.pdfUrl}" download="${record.pdfUrl}" target="_blank">Download PDF</a></td>
-                    </tr>
-                `).join('')}
-            </tbody>
-        </table>
-    `;
+function displayDataInTable(data, dataTable) {
 
-    responseTable.innerHTML = tableHTML;
+    const tbody = dataTable.querySelector('tbody');
+
+
+    tbody.innerHTML = '';
+
+    if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5">No data to display.</td></tr>';
+    } else {
+        data.forEach(record => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${record.mailRoomDate || 'N/A'}</td>
+                <td>${record.documentCode || 'N/A'}</td>
+                <td>${record.documentDescription || 'N/A'}</td>
+                <td>${record.pageCount || 'N/A'}</td>
+                <td>${record.pdfUrl ? `<a class="download-pdf" href="https://ped.uspto.gov/api/queries/cms/${record.pdfUrl}" download="${record.pdfUrl}" target="_blank"><i class="fas fa-download"></i>PDF</a>` : 'N/A'}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+
+        const resultsSection = document.querySelector('.results-section');
+        resultsSection.style.display = 'block';
+    }
 }
