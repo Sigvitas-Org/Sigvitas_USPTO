@@ -55,30 +55,42 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function displayDataInTable(data, dataTable) {
-    hideLoader();
+    // Clear the loader
+    loader.style.display = 'none';
 
-    const tbody = dataTable.querySelector('tbody');
-
-
-    tbody.innerHTML = '';
+    // Clear the table
+    dataTable.innerHTML = '';
 
     if (data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5">No data to display.</td></tr>';
+        dataTable.innerHTML = '<tr><td colspan="5">No data to display.</td></tr>';
     } else {
+        // Display table header
+        dataTable.innerHTML = `
+        <tr>
+            <th>Mail Room Date</th>
+            <th>Document Code</th>
+            <th>Document Description</th>
+            <th>Page Count</th>
+            <th>PDF</th>
+        </tr>
+    `;
+
         data.forEach(record => {
+            // Extract only the date part
+            const mailRoomDate = record.mailRoomDate ? new Date(record.mailRoomDate).toJSON().slice(0, 10) : 'N/A';
+
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${record.mailRoomDate || 'N/A'}</td>
-                <td>${record.documentCode || 'N/A'}</td>
-                <td>${record.documentDescription || 'N/A'}</td>
-                <td>${record.pageCount || 'N/A'}</td>
-                <td>${record.pdfUrl ? `<a class="download-pdf" href="https://ped.uspto.gov/api/queries/cms/${record.pdfUrl}" download="${record.pdfUrl}" target="_blank"><i class="fas fa-download"></i>PDF</a>` : 'N/A'}</td>
-            `;
-            tbody.appendChild(row);
+            <td>${mailRoomDate}</td>
+            <td>${record.documentCode || 'N/A'}</td>
+            <td>${record.documentDescription || 'N/A'}</td>
+            <td>${record.pageCount || 'N/A'}</td>
+            <td>${record.pdfUrl ? `<a class="download-pdf" href="https://ped.uspto.gov/api/queries/cms/${record.pdfUrl}" download="${record.pdfUrl}" target="_blank"><i class="fas fa-download"></i>PDF</a>` : 'N/A'}</td>
+        `;
+            dataTable.appendChild(row);
         });
 
-
-        const resultsSection = document.querySelector('.results-section');
+        // After adding the data, show the results section
         resultsSection.style.display = 'block';
     }
 }
