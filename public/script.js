@@ -11,16 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const loader = document.getElementById('loader');
 
 
-    filterDropdown.addEventListener('click', (event) => {
-        event.stopPropagation();
-    });
-    const initiateDownload = (pdfUrl) => {
-        if (pdfUrl) {
-            window.location.href = `https://ped.uspto.gov/api/queries/cms/${pdfUrl}`;
-        } else {
-            console.log('No PDF URL found for this filter.');
-        }
-    };
+    // filterDropdown.addEventListener('click', (event) => {
+    //     event.stopPropagation();
+    // });
+    // const initiateDownload = (pdfUrl) => {
+    //     if (pdfUrl) {
+    //         window.location.href = `https://ped.uspto.gov/api/queries/cms/${pdfUrl}`;
+    //     } else {
+    //         console.log('No PDF URL found for this filter.');
+    //     }
+    // };
 
     fetchButton.addEventListener('click', async () => {
 
