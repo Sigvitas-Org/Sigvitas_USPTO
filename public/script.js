@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Display the total page count placeholder
             const totalPageCountPlaceholder = document.getElementById('totalPageCountPlaceholder');
             if (totalPageCountPlaceholder) {
-                totalPageCountPlaceholder.innerHTML = `Total Pages: <span id="totalPageCount">${totalPageCount}</span>`;
+                totalPageCountPlaceholder.innerHTML = `Total Pages Count: <span id="totalPageCount">${totalPageCount}</span>`;
             }
 
             // Display the total entry count placeholder
