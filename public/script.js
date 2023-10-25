@@ -134,14 +134,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-refreshButton.addEventListener('click', () => {
-    // Clear session data
-    sessionStorage.clear();
-
-    // Redirect to the same page to start a new session and refresh
-    window.location.href = window.location.href;
-});
-
+    refreshButton.addEventListener('click', () => {
+        // Generate a random session identifier
+        const sessionIdentifier = Math.random().toString(36).substring(7);
+        
+        // Append the session identifier to the URL and reload the page
+        const newUrl = `${window.location.href}?session=${sessionIdentifier}`;
+        window.location.href = newUrl;
+    });
+    
  
 
 
