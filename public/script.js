@@ -98,9 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
             </tr>
         `;
 
+            let totalPageCount = 0; // Initialize total page count
+            let totalEntryCount = 0; // Initialize total entry count
+
             data.forEach(record => {
-                // Extract only the date part
-                const mailRoomDate = record.mailRoomDate ? new Date(record.mailRoomDate).toJSON().slice(0, 10) : 'N/A';
+                // Format the date to MM/DD/YYYY
+                const mailRoomDate = record.mailRoomDate ? new Date(record.mailRoomDate).toLocaleDateString('en-US') : 'N/A';
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -111,12 +114,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${record.pdfUrl ? `<a class="download-pdf" href="https://ped.uspto.gov/api/queries/cms/${record.pdfUrl}" download="${record.pdfUrl}" target="_blank"><i class="fas fa-download"></i>PDF</a>` : 'N/A'}</td>
             `;
                 dataTable.appendChild(row);
+
+                totalPageCount += parseInt(record.pageCount) || 0;
+                // Increment the total entry count
+                totalEntryCount++;
             });
 
-            // After adding the data, show the results section
+            const totalPageCountPlaceholder = document.getElementById('totalPageCountPlaceholder');
+            if (totalPageCountPlaceholder) {
+                totalPageCountPlaceholder.innerHTML = `Total Pages: <span id="totalPageCount">${totalPageCount}</span>`;
+            }
+            const totalEntryCountPlaceholder = document.getElementById('totalEntryCountPlaceholder');
+            if (totalEntryCountPlaceholder) {
+                totalEntryCountPlaceholder.innerHTML = `Total Entries: <span id="totalEntryCount">${totalEntryCount}</span>`;
+            }
             resultsSection.style.display = 'block';
         }
     }
+
+
+
 
  
 
