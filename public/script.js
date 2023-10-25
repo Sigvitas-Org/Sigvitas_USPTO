@@ -23,48 +23,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // };
 
     fetchButton.addEventListener('click', async () => {
+    // Get the data type and data input
+    const dataType = dataTypeDropdown.value;
+    const dataValue = dataInput.value.trim(); // Remove leading/trailing whitespace
 
-        const dataType = dataTypeDropdown.value;
-        const dataValue = dataInput.value.trim(); 
-    
-        if (dataValue === '') {
+    if (dataValue === '') {
+        // Display an error message or alert the user
+        alert('Please enter a valid data number.');
+        return; // Don't proceed if the input is empty
+    }
 
-            alert('Please enter a valid data number.');
-            return; 
-        }
-    
+    // Show the loader while fetching data
+    loader.style.display = 'block';
 
-        loader.style.display = 'block';
-    
+    // Clear the table
+    dataTable.innerHTML = '';
+    resultsSection.style.display = 'none';
 
-        dataTable.innerHTML = '';
-        resultsSection.style.display = 'none';
-    
-        let apiUrl = '';
-    
-        if (dataType === 'application') {
-            apiUrl = `/fetchUSPTOData?applicationNumber=${dataValue}`;
-        } else if (dataType === 'patent') {
-            apiUrl = `/fetchPatentData?patentNumber=${dataValue}`;
-        } else if (dataType === 'publication') {
-            apiUrl = `/fetchPublicationData?publicationNumber=${dataValue}`;
-        }
-    
-        if (apiUrl) {
-            try {
-                const response = await fetch(apiUrl);
-                if (response.ok) {
-                    const data = await response.json();
-                    displayDataInTable(data, dataTable);
-                } else {
-                    console.error(`Error fetching ${dataType} data:`, response.statusText);
-                }
-            } catch (error) {
-                console.error(`Error fetching ${dataType} data:`, error);
+    let apiUrl = '';
+
+    if (dataType === 'application') {
+        apiUrl = `/fetchUSPTOData?applicationNumber=${dataValue}`;
+    } else if (dataType === 'patent') {
+        apiUrl = `/fetchPatentData?patentNumber=${dataValue}`;
+    } else if (dataType === 'publication') {
+        apiUrl = `/fetchPublicationData?publicationNumber=${dataValue}`;
+    }
+
+    if (apiUrl) {
+        try {
+            const response = await fetch(apiUrl);
+            if (response.ok) {
+                const data = await response.json();
+                displayDataInTable(data, dataTable);
+            } else {
+                console.error(`Error fetching ${dataType} data:`, response.statusText);
             }
+        } catch (error) {
+            console.error(`Error fetching ${dataType} data:`, error);
         }
-    });
-    
+    }
+});
 
     function displayDataInTable(data, dataTable) {
         // Clear the loader
@@ -104,43 +103,49 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
                 dataTable.appendChild(row);
 
+                // Calculate the total page count
                 totalPageCount += parseInt(record.pageCount) || 0;
                 // Increment the total entry count
                 totalEntryCount++;
             });
 
+            // Display the total page count placeholder
             const totalPageCountPlaceholder = document.getElementById('totalPageCountPlaceholder');
             if (totalPageCountPlaceholder) {
                 totalPageCountPlaceholder.innerHTML = `Total Pages: <span id="totalPageCount">${totalPageCount}</span>`;
             }
+
+            // Display the total entry count placeholder
             const totalEntryCountPlaceholder = document.getElementById('totalEntryCountPlaceholder');
             if (totalEntryCountPlaceholder) {
                 totalEntryCountPlaceholder.innerHTML = `Total Entries: <span id="totalEntryCount">${totalEntryCount}</span>`;
             }
+
+            // After adding the data and updating the total counts, show the results section
             resultsSection.style.display = 'block';
         }
     }
 
-
-    refreshButton.addEventListener('click', () => {
-        // Clear all cookies
-        document.cookie.split(";").forEach(function(c) {
-            document.cookie = c
-                .replace(/^ +/, "")
-                .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-        });
-    
-        // Clear stored input data
-        const inputs = document.querySelectorAll('input');
-        inputs.forEach(input => {
-            input.value = '';
-        });
-    
-        // Redirect to the same page to start a new session and refresh
-        window.location.href = window.location.href;
+refreshButton.addEventListener('click', () => {
+    // Clear all cookies
+    document.cookie.split(";").forEach(function(c) {
+        document.cookie = c
+            .replace(/^ +/, "")
+            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
     });
-    
-    
+
+    // Clear stored input data
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.value = '';
+    });
+
+    // Redirect to the same page to start a new session and refresh
+    window.location.href = window.location.href;
+});
+
+
+
  
 
 
