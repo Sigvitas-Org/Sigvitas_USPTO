@@ -157,7 +157,7 @@ td a:hover {
 }
 
 /* Style for the filter button */
-#filterButton {
+/* #filterButton {
     background-color: #011e3b;
         color: #fff;
         padding: 4px 8px;
@@ -170,39 +170,46 @@ td a:hover {
         width: 100px;
         text-align: center;
     }
+    /* Adjust the margin as needed */
 
-#filterButton:hover {
+/* #filterButton:hover {
     background-color: #2980b9;
-}
+} */ */
 
-.dropdown {
+/* .dropdown {
     margin: auto;
 
     margin-left: auto;
 
     margin-left: 62em;
 
-}
+} */
 
+/* Add styles for the total page count placeholder */
 #totalPageCountPlaceholder {
     margin-top: 20px;
     /* margin-left: 47em; */
     font-weight: bold;
     font-size: 18px;
     color: #333;
+    /* You can choose your desired color */
 }
 
 #totalPageCount {
     color: #3498db;
+    /* You can choose your desired color for the count */
 }
+/* Add styles for the total entry count placeholder */
 #totalEntryCountPlaceholder {
 margin-top: 20px;
     /* margin-left: 47em; */
     font-weight: bold;
     font-size: 18px;
     color: #333;
+    /* You can choose your desired color */
 }
 
 #totalEntryCount {
     color: #3498db;
+    /* You can choose your desired color for the count */
 }
