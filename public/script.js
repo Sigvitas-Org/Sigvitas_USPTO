@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchButton = document.getElementById('fetchButton');
     const dataTable = document.getElementById('dataTable');
     const resultsSection = document.querySelector('.results-section');
-    const filterButton = document.getElementById('filterButton');
+    // const filterButton = document.getElementById('filterButton');
     const refreshButton = document.getElementById('refreshButton');
-    const filterDropdown = document.getElementById('filterDropdown');
-    const dropdownItems = filterDropdown.querySelectorAll('.dropdown-item');
+    // const filterDropdown = document.getElementById('filterDropdown');
+    // const dropdownItems = filterDropdown.querySelectorAll('.dropdown-item');
     const loader = document.getElementById('loader');
 
 
