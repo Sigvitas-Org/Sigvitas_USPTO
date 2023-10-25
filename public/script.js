@@ -23,59 +23,48 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     fetchButton.addEventListener('click', async () => {
-        // Show the loader while fetching data
-        loader.style.display = 'block';
-
-        // Clear the table
-        dataTable.innerHTML = '';
-        resultsSection.style.display = 'none';
 
         const dataType = dataTypeDropdown.value;
-        const dataValue = dataInput.value;
+        const dataValue = dataInput.value.trim(); 
+    
+        if (dataValue === '') {
 
+            alert('Please enter a valid data number.');
+            return; 
+        }
+    
+
+        loader.style.display = 'block';
+    
+
+        dataTable.innerHTML = '';
+        resultsSection.style.display = 'none';
+    
+        let apiUrl = '';
+    
         if (dataType === 'application') {
-            const apiUrl = `/fetchUSPTOData?applicationNumber=${dataValue}`;
-            try {
-                const response = await fetch(apiUrl);
-                if (response.ok) {
-                    const data = await response.json();
-                    displayDataInTable(data, dataTable);
-                } else {
-                    console.error('Error fetching data:', response.statusText);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
+            apiUrl = `/fetchUSPTOData?applicationNumber=${dataValue}`;
         } else if (dataType === 'patent') {
-            // Handle patent data fetching and displaying
-            const apiUrl = `/fetchPatentData?patentNumber=${dataValue}`;
-            try {
-                const response = await fetch(apiUrl);
-                if (response.ok) {
-                    const data = await response.json();
-                    displayDataInTable(data, dataTable);
-                } else {
-                    console.error('Error fetching patent data:', response.statusText);
-                }
-            } catch (error) {
-                console.error('Error fetching patent data:', error);
-            }
+            apiUrl = `/fetchPatentData?patentNumber=${dataValue}`;
         } else if (dataType === 'publication') {
-            const publicationNumber = dataValue;
-            const apiUrl = `/fetchPublicationData?publicationNumber=${publicationNumber}`;
+            apiUrl = `/fetchPublicationData?publicationNumber=${dataValue}`;
+        }
+    
+        if (apiUrl) {
             try {
                 const response = await fetch(apiUrl);
                 if (response.ok) {
                     const data = await response.json();
                     displayDataInTable(data, dataTable);
                 } else {
-                    console.error('Error fetching publication data:', response.statusText);
+                    console.error(`Error fetching ${dataType} data:`, response.statusText);
                 }
             } catch (error) {
-                console.error('Error fetching publication data:', error);
+                console.error(`Error fetching ${dataType} data:`, error);
             }
         }
     });
+    
 
     function displayDataInTable(data, dataTable) {
         // Clear the loader
@@ -133,15 +122,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-
     refreshButton.addEventListener('click', () => {
-        // Generate a random session identifier
-        const sessionIdentifier = Math.random().toString(36).substring(7);
-        
-        // Append the session identifier to the URL and reload the page
-        const newUrl = `${window.location.href}?session=${sessionIdentifier}`;
-        window.location.href = newUrl;
+        // Clear all cookies
+        document.cookie.split(";").forEach(function(c) {
+            document.cookie = c
+                .replace(/^ +/, "")
+                .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+    
+        // Clear stored input data
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.value = '';
+        });
+    
+        // Redirect to the same page to start a new session and refresh
+        window.location.href = window.location.href;
     });
+    
     
  
 
