@@ -134,6 +134,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+refreshButton.addEventListener('click', () => {
+    // Clear session data
+    sessionStorage.clear();
+
+    // Redirect to the same page to start a new session and refresh
+    window.location.href = window.location.href;
+});
 
  
 
