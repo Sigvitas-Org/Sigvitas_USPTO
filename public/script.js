@@ -146,100 +146,100 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    dropdownItems.forEach((item) => {
-        item.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default link behavior
-            const filterType = event.target.getAttribute('data-value');
+    // dropdownItems.forEach((item) => {
+    //     item.addEventListener('click', (event) => {
+    //         event.preventDefault(); // Prevent default link behavior
+    //         const filterType = event.target.getAttribute('data-value');
 
-            if (filterType == 'abstract') {
-                // Fetch and handle Abstracts
-                fetch('response/uspto_response.json')
-                    .then((response) => response.json())
-                    .then((data) => {
-                        // Filter data for "Abstract" (ABST)
-                        const abstracts = data.filter((record) => record.documentCode === 'ABST');
+    //         if (filterType == 'abstract') {
+    //             // Fetch and handle Abstracts
+    //             fetch('response/uspto_response.json')
+    //                 .then((response) => response.json())
+    //                 .then((data) => {
+    //                     // Filter data for "Abstract" (ABST)
+    //                     const abstracts = data.filter((record) => record.documentCode === 'ABST');
 
-                        if (abstracts.length > 0) {
-                            // Find the record with the earliest mailRoomDate
-                            let earliestRecord = abstracts[0];
-                            for (const record of abstracts) {
-                                if (new Date(record.mailRoomDate) < new Date(earliestRecord.mailRoomDate)) {
-                                    earliestRecord = record;
-                                }
-                            }
+    //                     if (abstracts.length > 0) {
+    //                         // Find the record with the earliest mailRoomDate
+    //                         let earliestRecord = abstracts[0];
+    //                         for (const record of abstracts) {
+    //                             if (new Date(record.mailRoomDate) < new Date(earliestRecord.mailRoomDate)) {
+    //                                 earliestRecord = record;
+    //                             }
+    //                         }
 
-                            // Initiate the download
-                            console.log('Fetching and downloading Abstracts...');
-                            initiateDownload(earliestRecord.pdfUrl);
-                        } else {
-                            console.log('No Abstract documents found.');
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching Abstract data:', error);
-                    });
-            } else if (filterType == 'claims') {
-                // Fetch and handle Claims
-                fetch('response/uspto_response.json')
-                    .then((response) => response.json())
-                    .then((data) => {
-                        // Filter data for "Claims" (CLM)
-                        const claims = data.filter((record) => record.documentCode === 'CLM');
+    //                         // Initiate the download
+    //                         console.log('Fetching and downloading Abstracts...');
+    //                         initiateDownload(earliestRecord.pdfUrl);
+    //                     } else {
+    //                         console.log('No Abstract documents found.');
+    //                     }
+    //                 })
+    //                 .catch((error) => {
+    //                     console.error('Error fetching Abstract data:', error);
+    //                 });
+    //         } else if (filterType == 'claims') {
+    //             // Fetch and handle Claims
+    //             fetch('response/uspto_response.json')
+    //                 .then((response) => response.json())
+    //                 .then((data) => {
+    //                     // Filter data for "Claims" (CLM)
+    //                     const claims = data.filter((record) => record.documentCode === 'CLM');
 
-                        if (claims.length > 0) {
-                            // Find the record with the earliest mailRoomDate
-                            let earliestRecord = claims[0];
-                            for (const record of claims) {
-                                if (new Date(record.mailRoomDate) < new Date(earliestRecord.mailRoomDate)) {
-                                    earliestRecord = record;
-                                }
-                            }
+    //                     if (claims.length > 0) {
+    //                         // Find the record with the earliest mailRoomDate
+    //                         let earliestRecord = claims[0];
+    //                         for (const record of claims) {
+    //                             if (new Date(record.mailRoomDate) < new Date(earliestRecord.mailRoomDate)) {
+    //                                 earliestRecord = record;
+    //                             }
+    //                         }
 
-                            // Initiate the download
-                            console.log('Fetching and downloading Claims...');
-                            initiateDownload(earliestRecord.pdfUrl);
-                        } else {
-                            console.log('No Claims documents found.');
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching Claims data:', error);
-                    });
-            } else if (filterType =='specifications') {
-                // Fetch and handle Specifications
-                fetch('/response/uspto_response.json')
-                    .then((response) => response.json())
-                    .then((data) => {
-                        // Filter data for "Specifications" (SPEC)
-                        const specifications = data.filter((record) => record.documentCode === 'SPEC');
+    //                         // Initiate the download
+    //                         console.log('Fetching and downloading Claims...');
+    //                         initiateDownload(earliestRecord.pdfUrl);
+    //                     } else {
+    //                         console.log('No Claims documents found.');
+    //                     }
+    //                 })
+    //                 .catch((error) => {
+    //                     console.error('Error fetching Claims data:', error);
+    //                 });
+    //         } else if (filterType =='specifications') {
+    //             // Fetch and handle Specifications
+    //             fetch('/response/uspto_response.json')
+    //                 .then((response) => response.json())
+    //                 .then((data) => {
+    //                     // Filter data for "Specifications" (SPEC)
+    //                     const specifications = data.filter((record) => record.documentCode === 'SPEC');
 
-                        if (specifications.length > 0) {
-                            // Find the record with the earliest mailRoomDate
-                            let earliestRecord = specifications[0];
-                            for (const record of specifications) {
-                                if (new Date(record.mailRoomDate) < new Date(earliestRecord.mailRoomDate)) {
-                                    earliestRecord = record;
-                                }
-                            }
+    //                     if (specifications.length > 0) {
+    //                         // Find the record with the earliest mailRoomDate
+    //                         let earliestRecord = specifications[0];
+    //                         for (const record of specifications) {
+    //                             if (new Date(record.mailRoomDate) < new Date(earliestRecord.mailRoomDate)) {
+    //                                 earliestRecord = record;
+    //                             }
+    //                         }
 
-                            // Initiate the download
-                            console.log('Fetching and downloading Specifications...');
-                            initiateDownload(earliestRecord.pdfUrl);
-                        } else {
-                            console.log('No Specifications documents found.');
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching Specifications data:', error);
-                    });
-            } else if (filterType === 'all') {
-                // Handle All
-                // You can implement downloading all documents here
-                // Zip the documents and initiate a download
-                console.log('Fetching and downloading all documents (Abstracts, Claims, Specifications)...');
-            }
-        });
-    });
+    //                         // Initiate the download
+    //                         console.log('Fetching and downloading Specifications...');
+    //                         initiateDownload(earliestRecord.pdfUrl);
+    //                     } else {
+    //                         console.log('No Specifications documents found.');
+    //                     }
+    //                 })
+    //                 .catch((error) => {
+    //                     console.error('Error fetching Specifications data:', error);
+    //                 });
+    //         } else if (filterType === 'all') {
+    //             // Handle All
+    //             // You can implement downloading all documents here
+    //             // Zip the documents and initiate a download
+    //             console.log('Fetching and downloading all documents (Abstracts, Claims, Specifications)...');
+    //         }
+    //     });
+    // });
 
 
 
